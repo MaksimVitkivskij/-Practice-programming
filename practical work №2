@@ -1,0 +1,44 @@
+#include <stdio.h>
+#include <windows.h>
+#include <stdlib.h>
+
+// Функція для знаходження найбільшого спільного дільника (алгоритм Євкліда)
+int gcd(int a, int b) {
+    if (b == 0)
+        return a;
+    return gcd(b, a % b);
+}
+
+// Функція для знаходження найменшого спільного кратного
+int lcm(int a, int b) {
+    return (a * b) / gcd(a, b);
+}
+
+int main() {
+    SetConsoleCP(1251);
+    SetConsoleOutputCP(1251);
+
+    int n, i, numbers[20], result;
+
+    // Ввід кількості чисел
+    printf("Введіть кількість чисел (р): ");
+    scanf("%d", &n);
+
+    // Ввід натуральних чисел і запис у масив
+    printf("Введіть %d натуральних чисел: ", n);
+    for (i = 0; i < n; i++) {
+        scanf("%d", &numbers[i]);
+    }
+
+    result = numbers[0];
+    // Знаходження найменшого спільного кратного за допомогою циклу та функції lcm()
+    for (i = 1; i < n; i++) {
+        result = lcm(result, numbers[i]);
+    }
+
+    // Виведення результату в консоль
+    printf("Найменше спільне кратне: %d\n", result);
+        printf("\n\n Практичне завдання №2\n Виконав студент НУБІП групи ІПЗ-22009б \n Вітківський Максим Сергійович\n\n");
+
+    return 0;
+}
