@@ -1,0 +1,52 @@
+#include <stdio.h>
+#include <windows.h>
+#include <math.h>
+
+// Функція для обчислення факторіалу числа
+int factorial(int n) {
+    if (n == 0 || n == 1)
+        return 1;
+    else
+        return n * factorial(n - 1);
+}
+
+// Функція для підрахунку кількості анаграм для заданого слова
+int countAnagrams(char* word) {
+    int length = strlen(word);
+    int frequency[26] = {0}; // Масив для збереження частоти кожної літери
+    int i, denominator = 1;
+
+    // Підрахунок частоти кожної літери в слові
+    for (i = 0; i < length; i++) {
+        if (word[i] >= 'a' && word[i] <= 'z') {
+            frequency[word[i] - 'a']++; // Збільшуємо частоту для маленьких літер
+        } else if (word[i] >= 'A' && word[i] <= 'Z') {
+            frequency[word[i] - 'A']++; // Збільшуємо частоту для великих літер
+        }
+    }
+
+    // Обчислення знаменника у формулі для підрахунку анаграм
+    for (i = 0; i < 26; i++) {
+        denominator *= factorial(frequency[i]); // Знаменник - добуток факторіалів частот кожної літери
+    }
+
+    // Обчислення кількості анаграм за формулою факторіала довжини слова, поділеного на знаменник
+    int anagramCount = factorial(length) / denominator;
+    return anagramCount;
+}
+
+int main() {
+    // Налаштування кодування консолі для підтримки виводу кириллиці
+    SetConsoleCP(1251);
+    SetConsoleOutputCP(1251);
+
+    char word[15]; // Масив для збереження введеного слова
+    printf("Введіть слово: ");
+    scanf("%s", word);
+
+    int anagramCount = countAnagrams(word); // Виклик функції countAnagrams для обчислення кількості анаграм
+    printf("Кількість анаграм: %d\n", anagramCount);
+    printf("\n\n Практичне завдання №8\n Виконав студент НУБІП групи ІПЗ-22009б \n Вітківський Максим Сергійович\n\n");
+
+    return 0;
+}
